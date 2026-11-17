@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة متجر العقرب | إضافة منتج</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Cairo', sans-serif; background-color: #0B0F19; color: #F3F4F6; }
+        .gold-accent { color: #D4AF37; }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <div class="bg-[#131B2E] border border-gray-800 p-6 rounded-2xl w-full max-w-md shadow-xl">
+        <h1 class="text-xl font-bold text-center gold-accent mb-2">إضافة منتج جديد</h1>
+        <p class="text-xs text-center text-gray-400 mb-6">املأ البيانات لإرسالها فوراً لمتجرك</p>
+
+        <form id="productForm" class="space-y-4">
+            <div>
+                <label class="block text-xs font-semibold mb-1 text-gray-300">اسم المنتج</label>
+                <input type="text" id="name" required class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-[#38BDF8]">
+            </div>
+            <div>
+                <label class="block text-xs font-semibold mb-1 text-gray-300">السعر</label>
+                <input type="text" id="price" required class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-[#38BDF8]" placeholder="مثال: 15 دينار">
+            </div>
+            <div>
+                <label class="block text-xs font-semibold mb-1 text-gray-300">الوصف البسيط</label>
+                <textarea id="desc" rows="2" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-[#38BDF8]"></textarea>
+            </div>
+            <div>
+                <label class="block text-xs font-semibold mb-1 text-gray-300">رابط الصورة أو الفيديو المباشر</label>
+                <input type="url" id="media" required class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-[#38BDF8]" placeholder="https://...">
+            </div>
+            <div>
+                <label class="block text-xs font-semibold mb-1 text-gray-300">رابط طلب الواتساب</label>
+                <input type="url" id="wa" required class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-[#38BDF8]" placeholder="https://wa.me/...">
+            </div>
+
+            <button type="submit" id="submitBtn" class="w-full bg-[#38BDF8] text-[#0B0F19] font-bold py-3 rounded-lg text-sm hover:bg-[#0ea5e9] transition mt-2">إرسال المنتج للمتجر</button>
+        </form>
+
+        <p id="statusMsg" class="text-center text-xs mt-4"></p>
+    </div>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxFWSe8tSlSieYPjbENZ0gSRgcSZ3l9rnEq83RZDiZ11X-EVgx4lGXefrwEjknS-9dPog/exec';
+
+        const form = document.getElementById('productForm');
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            const msg = document.getElementById('statusMsg');
+            
+            btn.disabled = true;
+            btn.textContent = 'جاري الإرسال...';
+            msg.textContent = '';
+
+            const data = {
+                name: document.getElementById('name').value,
+                price: document.getElementById('price').value,
+                desc: document.getElementById('desc').value,
+                media: document.getElementById('media').value,
+                wa: document.getElementById('wa').value
+            };
+
+            fetch(scriptURL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(() => {
+                msg.className = 'text-center text-xs mt-4 text-green-400 font-bold';
+                msg.textContent = 'تم إرسال المنتج بنجاح وتحديث المتجر!';
+                form.reset();
+                btn.disabled = false;
+                btn.textContent = 'إرسال المنتج للمتجر';
+            })
+            .catch(error => {
+                msg.className = 'text-center text-xs mt-4 text-red-400 font-bold';
+                msg.textContent = 'حدث خطأ، حاول مرة أخرى.';
+                btn.disabled = false;
+                btn.textContent = 'إرسال المنتج للمتجر';
+            });
+        });
+    </script>
+</body>
+</html>
