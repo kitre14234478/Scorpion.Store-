@@ -14,7 +14,7 @@
 <body class="min-h-screen flex items-center justify-center p-4">
 
     <div class="bg-[#131B2E] border border-gray-800 p-6 rounded-2xl w-full max-w-md shadow-xl">
-        <h1 class="text-xl font-bold text-center gold-accent mb-2">إضافة منتج أو فيديو جديد</h1>
+        <h1 class="text-xl font-bold text-center gold-accent mb-2">إضافة منتج أو فيديو جديد 🦂</h1>
         <p class="text-xs text-center text-gray-400 mb-6">يدعم روابط الصور، يوتيوب، تيك توك، وإنستغرام</p>
 
         <form id="productForm" class="space-y-4">
@@ -24,7 +24,7 @@
             </div>
             <div>
                 <label class="block text-xs font-semibold mb-1 text-gray-300">السعر</label>
-                <input type="text" id="price" required class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-[#38BDF8]" placeholder="مثال: 15 دينار">
+                <input type="text" id="price" required class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-[#38BDF8]" placeholder="مثال: 20$">
             </div>
             <div>
                 <label class="block text-xs font-semibold mb-1 text-gray-300">الوصف البسيط</label>
@@ -46,8 +46,7 @@
     </div>
 
     <script>
-        // ضع رابط الـ Apps Script الجديد بين علامتي التنصيص أدناه:
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbz-onsOt-vU-sDG0yAH4x62MpUrhX1PLKVUg8MOLGQkCAn-uc7NN2ItsLLdHfBl8PSOkg/exec';
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwVNrMkr3gEIbNqom4SFharHfCq7V98oWSr1o7Lb-AREwh0QvKn777AcRMadkuedtrh/exec';
 
         const form = document.getElementById('productForm');
         form.addEventListener('submit', e => {
